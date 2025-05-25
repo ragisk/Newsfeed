@@ -66,6 +66,14 @@ class MainActivity : ComponentActivity() {
 
                 binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
                 binding.noDataText.visibility = if (isListEmpty) View.VISIBLE else View.GONE
+
+                val refreshState = loadStates.refresh
+                if (refreshState is LoadState.Error){
+                    binding.noDataText.visibility = View.VISIBLE
+                    val errorMsg = refreshState.error.localizedMessage ?: "Unknown error"
+                    binding.noDataText.text=errorMsg
+                }
+
             }
         }
 
